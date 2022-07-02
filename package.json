@@ -1,0 +1,26 @@
+{
+  "name": "memoize-app",
+  "version": "1.0.0",
+  "description": "An API for a sophisticated to-do list",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "memoize",
+    "express",
+    "portfolio"
+  ],
+  "author": "Aamir Khan",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
