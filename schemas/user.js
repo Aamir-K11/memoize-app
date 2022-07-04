@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const PasswordHashHook = require('./hooks/password-hash');
 
 const UserSchema = new mongoose.Schema({
 
@@ -8,7 +9,7 @@ const UserSchema = new mongoose.Schema({
         trim: true
     },
 
-    lastName: {
+    lastname: {
         type: String,
         required: true,
         trim: true
@@ -37,11 +38,14 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
+PasswordHashHook(UserSchema);
+
 //Virtual for getting full name - Virtuals are not persisted to DB.
 UserSchema.virtual('fullName').get(function() {
     return this.firstname + ' ' + this.lastname;
 });
 
-const User = mongoose.Model('User', UserSchema);
+
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
