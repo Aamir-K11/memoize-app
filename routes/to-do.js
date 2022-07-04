@@ -1,16 +1,23 @@
 const express = require('express');
 const router  = express.Router();
-const {BadRequestError} = require('../errors');
+const ToDo    = require('../schemas/to-do');
 require('express-async-errors');
 
-const toDos = [
-    "Watch cloud guru course",
-    "Watch Nodejs course",
-    "Learn about Jira",
-];
+router.post('/', async (req, res) => {
+
+    const ToDoObject = {
+        title: req.body.title,
+        description: req.body.description,
+        priority: req.body.priority,
+    };
+
+    const ToDoDocument = await ToDo.create(ToDoObject);
+    return res.send(ToDoDocument);
+});
 
 router.get('/', async (req, res) => {
-    throw new BadRequestError("No tasks in queue");
+    const ToDos = await ToDo.find();
+    return res.send(ToDos);
 });
 
 module.exports = router;
