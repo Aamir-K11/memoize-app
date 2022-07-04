@@ -23,10 +23,8 @@ const ToDoSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     }
-
-
 });
 
-const ToDo = new mongoose.model('ToDo', ToDoSchema);
+const ToDo = mongoose.model('ToDo', ToDoSchema);
 
 module.exports = ToDo;
