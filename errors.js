@@ -1,5 +1,5 @@
 class BadRequestError extends Error {
-    constructor(message, statusCode) 
+    constructor(message) 
     {
         super(message);
         
@@ -9,11 +9,11 @@ class BadRequestError extends Error {
 }
 
 class UnauthorizedError extends Error {
-    constructor(message, statusCode) 
+    constructor(message) 
     {
         super(message);
         
-        this.status = "BadRequestException";
+        this.status = "UnauthorizedException";
         this.statusCode = 401;
     }
 }
