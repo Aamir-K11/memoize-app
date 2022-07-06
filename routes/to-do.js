@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const ToDo    = require('../schemas/to-do');
+const JwtAuth  = require('../middleware/jwt-auth');
 require('express-async-errors');
 
 router.post('/', async (req, res) => {
@@ -15,7 +16,7 @@ router.post('/', async (req, res) => {
     return res.send(ToDoDocument);
 });
 
-router.get('/', async (req, res) => {
+router.get('/', [JwtAuth], async (req, res) => {
     const ToDos = await ToDo.find();
     return res.send(ToDos);
 });
