@@ -3,14 +3,16 @@ const {ToDoSchema} = require('../schemas/to-do');
 
 const ToDoListSchema = mongoose.Schema({
     
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-
     todos: {
         type: [ToDoSchema],
         default: []
     }
 
 });
+
+const ToDoList = mongoose.model('ToDoList', ToDoListSchema);
+
+module.exports = {
+    ToDoListSchema,
+    ToDoList
+}

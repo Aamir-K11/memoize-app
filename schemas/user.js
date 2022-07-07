@@ -35,6 +35,12 @@ const UserSchema = new mongoose.Schema({
     {
         type: Boolean,
         default: false
+    },
+
+    todolist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ToDoList',
+        default: null
     }
 });
 
