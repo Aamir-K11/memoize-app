@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
     todolist: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ToDoList',
-        default: null
+        required: true
     }
 });
 
