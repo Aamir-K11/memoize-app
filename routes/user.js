@@ -1,42 +1,39 @@
-const express = require('express');
-const router = express.Router();
-const User   = require('../schemas/user');
-const JwtAuth = require('../middleware/jwt-auth');
-const {BadRequestError, InternalServerError} = require('../errors');
-const { ToDoList } = require('../schemas/to-do-list');
-require('express-async-errors');
+const express = require('express')
+const router = express.Router()
+const User = require('../schemas/user')
+const { BadRequestError } = require('../errors')
+const { ToDoList } = require('../schemas/to-do-list')
+require('express-async-errors')
 
 router.post('/signup', async (req, res) => {
-
-        const newUser = 
+  const newUser =
         {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            password: req.body.password
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          email: req.body.email,
+          password: req.body.password
         }
 
-        newUser.todolist = await ToDoList.create({});
+  newUser.todolist = await ToDoList.create({})
 
-        const existingUser = await User.findOne({email: newUser.email});
+  const existingUser = await User.findOne({ email: newUser.email })
 
-        if(existingUser) throw new BadRequestError('Email already associated with a user');
-    
-        const createdUser  = await User.create(newUser);
-        return res.send(createdUser);
-});
+  if (existingUser) throw new BadRequestError('Email already associated with a user')
+
+  const createdUser = await User.create(newUser)
+  return res.send(createdUser)
+})
 
 // router.post('/createlist', [JwtAuth] ,async(req, res) => {
 
 //     const listExists = await User.findOne({_id: req.user.user_id}, 'todolist');
-
 
 //     if(listExists.todolist) throw new BadRequestError('A ToDo list already exists for this user');
 
 //     const newList = await ToDoList.create({});
 //     const updatedUser = await User.updateOne({_id: req.user.user_id}, {todolist: newList._id});
 
-//     if(updatedUser.modifiedCount == 0) 
+//     if(updatedUser.modifiedCount == 0)
 //     {
 //         throw new InternalServerError('ToDo list couldnot be added. Some unknown error has occured');
 //     }
@@ -44,4 +41,4 @@ router.post('/signup', async (req, res) => {
 //     return res.send(`ToDo List created Successfully`);
 // });
 
-module.exports = router;
+module.exports = router

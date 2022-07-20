@@ -1,33 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ToDoSchema = new mongoose.Schema({
-   
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
 
-    description: {
-        type: String,
-        maxLength: 100,
-        trim: true
-    },
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
 
-    priority: {
-        type: String,
-        enum: ['HIGH', 'MEDIUM', 'LOW']
-    },
+  description: {
+    type: String,
+    maxLength: 100,
+    trim: true
+  },
 
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    }
-});
+  priority: {
+    type: String,
+    enum: ['HIGH', 'MEDIUM', 'LOW']
+  },
 
-const ToDo = mongoose.model('ToDo', ToDoSchema);
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  }
+})
+
+const ToDo = mongoose.model('ToDo', ToDoSchema)
 
 module.exports = {
-    ToDo,
-    ToDoSchema
-};
+  ToDo,
+  ToDoSchema
+}

@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
-const {ToDoSchema} = require('../schemas/to-do');
+const mongoose = require('mongoose')
+const { ToDoSchema } = require('../schemas/to-do')
 
 const ToDoListSchema = mongoose.Schema({
-    
-    todos: {
-        type: [ToDoSchema],
-        default: []
-    }
 
-});
+  todos: {
+    type: [ToDoSchema],
+    default: []
+  }
 
-const ToDoList = mongoose.model('ToDoList', ToDoListSchema);
+})
+
+const ToDoList = mongoose.model('ToDoList', ToDoListSchema)
 
 module.exports = {
-    ToDoListSchema,
-    ToDoList
+  ToDoListSchema,
+  ToDoList
 }
