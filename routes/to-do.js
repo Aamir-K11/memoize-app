@@ -44,4 +44,24 @@ router.delete('/', [JwtAuth], async (req, res) => {
   return res.send('ToDo list has been updated')
 })
 
+router.put('/', [JwtAuth], async (req, res) => {
+  const { toDoId, title, description, priority } = req.body
+  if (!title && !description && !priority) throw new BadRequestError('Nothing to update')
+  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos')
+
+  todos.forEach(td => {
+    if (td._id == toDoId) {
+      td.title = !title ? td.title : title
+      td.description = !description ? td.description : description
+      td.priority = !priority ? td.priority : priority
+    }
+  })
+
+  const updatedToDoList = await ToDoList.updateOne({ _id: req.user.todolist_id }, { todos })
+
+  if (updatedToDoList.modifiedCount === 0) throw new BadRequestError('No change hsa been made')
+
+  return res.send('ToDo has been updated')
+})
+
 module.exports = router
