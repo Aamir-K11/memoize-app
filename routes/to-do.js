@@ -19,9 +19,29 @@ router.post('/', [JwtAuth], async (req, res) => {
 
   const todolist = await ToDoList.updateOne({ _id: user.todolist }, { $push: { todos: toDoObject } })
 
-  if (todolist.modifiedCount > 0) return res.send('ToDo list has been updated')
+  if (todolist.modifiedCount === 0) return res.send('ToDo list has not been updated')
 
-  return res.send('ToDo list has not been updated')
+  return res.send('ToDo list has been updated')
+})
+
+router.delete('/', [JwtAuth], async (req, res) => {
+  const { toDoId } = req.body
+
+  if (!toDoId) throw new BadRequestError('No ToDo item selected for deletion')
+
+  const { todolist } = await User.findOne({ _id: req.user.user_id }).select('todolist')
+
+  if (!todolist) throw new BadRequestError('No todo list exists for this user')
+
+  const { todos } = await ToDoList.findOne({ _id: todolist }).select('todos')
+
+  const filteredToDos = todos.filter((td) => td._id != toDoId)
+
+  const updatedToDoList = await ToDoList.updateOne({ _id: todolist }, { todos: filteredToDos })
+
+  if (updatedToDoList.modifiedCount === 0) throw new BadRequestError('ToDo item doesnot exist')
+
+  return res.send('ToDo list has been updated')
 })
 
 module.exports = router
