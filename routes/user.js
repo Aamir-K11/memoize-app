@@ -14,11 +14,11 @@ router.post('/signup', async (req, res) => {
           password: req.body.password
         }
 
-  newUser.todolist = await ToDoList.create({})
-
   const existingUser = await User.findOne({ email: newUser.email })
 
   if (existingUser) throw new BadRequestError('Email already associated with a user')
+
+  newUser.todolist = await ToDoList.create({})
 
   const createdUser = await User.create(newUser)
   return res.send(createdUser)

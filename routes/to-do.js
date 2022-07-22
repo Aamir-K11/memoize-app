@@ -27,17 +27,11 @@ router.post('/', [JwtAuth], async (req, res) => {
 router.delete('/', [JwtAuth], async (req, res) => {
   const { toDoId } = req.body
 
-  if (!toDoId) throw new BadRequestError('No ToDo item selected for deletion')
-
-  const { todolist } = await User.findOne({ _id: req.user.user_id }).select('todolist')
-
-  if (!todolist) throw new BadRequestError('No todo list exists for this user')
-
-  const { todos } = await ToDoList.findOne({ _id: todolist }).select('todos')
+  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos')
 
   const filteredToDos = todos.filter((td) => td._id != toDoId)
 
-  const updatedToDoList = await ToDoList.updateOne({ _id: todolist }, { todos: filteredToDos })
+  const updatedToDoList = await ToDoList.updateOne({ _id: req.user.todolist_id }, { todos: filteredToDos }, { runValidators: true })
 
   if (updatedToDoList.modifiedCount === 0) throw new BadRequestError('ToDo item doesnot exist')
 
@@ -57,7 +51,7 @@ router.put('/', [JwtAuth], async (req, res) => {
     }
   })
 
-  const updatedToDoList = await ToDoList.updateOne({ _id: req.user.todolist_id }, { todos })
+  const updatedToDoList = await ToDoList.updateOne({ _id: req.user.todolist_id }, { todos }, { runValidators: true })
 
   if (updatedToDoList.modifiedCount === 0) throw new BadRequestError('No change hsa been made')
 
