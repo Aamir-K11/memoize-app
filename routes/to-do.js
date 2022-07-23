@@ -32,14 +32,14 @@ router.get('/', [JwtAuth], async (req, res) => {
 
 router.delete('/', [JwtAuth], async (req, res) => {
   const { toDoId } = req.body
-  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos')
+  const toDoList = await ToDoList.findOne({ _id: req.user.todolist_id })
 
-  const filteredToDos = todos.filter((td) => td._id != toDoId)
+  const toDo = toDoList.todos.id(toDoId)
+  if (!toDo) throw new BadRequestError('ToDo item does not exist')
 
-  const updatedToDoList = await ToDoList.updateOne({ _id: req.user.todolist_id }, { todos: filteredToDos }, { runValidators: true })
-  if (updatedToDoList.modifiedCount === 0) throw new BadRequestError('ToDo item doesnot exist')
-
-  return res.send('ToDo list has been updated')
+  toDo.remove()
+  const updatedToDoList = await toDoList.save()
+  return res.send(updatedToDoList)
 })
 
 router.put('/', [JwtAuth], async (req, res) => {
