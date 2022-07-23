@@ -25,7 +25,7 @@ router.post('/', [JwtAuth], async (req, res) => {
 })
 
 router.get('/', [JwtAuth], async (req, res) => {
-  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos')
+  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos').lean()
 
   return res.send(todos)
 })
