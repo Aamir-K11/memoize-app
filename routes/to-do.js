@@ -30,6 +30,23 @@ router.get('/', [JwtAuth], async (req, res) => {
   return res.send(todos)
 })
 
+router.put('/', [JwtAuth], async (req, res) => {
+  const { toDoId, title, description, priority } = req.body
+  if (!title && !description && !priority) throw new BadRequestError('Nothing to update')
+  const toDoList = await ToDoList.findOne({ _id: req.user.todolist_id })
+
+  const toDo = toDoList.todos.id(toDoId)
+  if (!toDo) throw new BadRequestError('ToDo item does not exist')
+
+  toDo.title = !(title) ? toDo.title : title
+  toDo.description = !(description) ? toDo.description : description
+  toDo.priority = !(priority) ? toDo.priority : priority
+
+  const updatedToDoList = await toDoList.save()
+
+  return res.send(updatedToDoList)
+})
+
 router.delete('/', [JwtAuth], async (req, res) => {
   const { toDoId } = req.body
   const toDoList = await ToDoList.findOne({ _id: req.user.todolist_id })
@@ -40,26 +57,6 @@ router.delete('/', [JwtAuth], async (req, res) => {
   toDo.remove()
   const updatedToDoList = await toDoList.save()
   return res.send(updatedToDoList)
-})
-
-router.put('/', [JwtAuth], async (req, res) => {
-  const { toDoId, title, description, priority } = req.body
-  if (!title && !description && !priority) throw new BadRequestError('Nothing to update')
-  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos')
-
-  todos.forEach(td => {
-    if (td._id == toDoId) {
-      td.title = !title ? td.title : title
-      td.description = !description ? td.description : description
-      td.priority = !priority ? td.priority : priority
-    }
-  })
-
-  const updatedToDoList = await ToDoList.updateOne({ _id: req.user.todolist_id }, { todos }, { runValidators: true })
-
-  if (updatedToDoList.modifiedCount === 0) throw new BadRequestError('No change hsa been made')
-
-  return res.send('ToDo has been updated')
 })
 
 module.exports = router
