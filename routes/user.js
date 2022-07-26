@@ -24,21 +24,4 @@ router.post('/signup', async (req, res) => {
   return res.send(createdUser)
 })
 
-// router.post('/createlist', [JwtAuth] ,async(req, res) => {
-
-//     const listExists = await User.findOne({_id: req.user.user_id}, 'todolist');
-
-//     if(listExists.todolist) throw new BadRequestError('A ToDo list already exists for this user');
-
-//     const newList = await ToDoList.create({});
-//     const updatedUser = await User.updateOne({_id: req.user.user_id}, {todolist: newList._id});
-
-//     if(updatedUser.modifiedCount == 0)
-//     {
-//         throw new InternalServerError('ToDo list couldnot be added. Some unknown error has occured');
-//     }
-
-//     return res.send(`ToDo List created Successfully`);
-// });
-
 module.exports = router
