@@ -11,7 +11,7 @@ router.post('/', [JwtAuth], async (req, res) => {
     description: req.body.description,
     priority: req.body.priority
   }
-  const todolist = await ToDoList.updateOne({ _id: req.$pushuser.todolist_id }, { $push: { todos: toDoObject } }, { runValidators: true })
+  const todolist = await ToDoList.updateOne({ _id: req.user.todolist_id }, { $push: { todos: toDoObject } }, { runValidators: true })
 
   if (todolist.modifiedCount === 0) return res.send('ToDo list has not been updated')
 
