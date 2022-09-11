@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../schemas/user')
 const { BadRequestError } = require('../errors')
 const { ToDoList } = require('../schemas/to-do-list')
+const { sendEmail } = require('../services/email/email-service')
 require('express-async-errors')
 
 router.post('/signup', async (req, res) => {
@@ -21,7 +22,17 @@ router.post('/signup', async (req, res) => {
   newUser.todolist = await ToDoList.create({})
 
   const createdUser = await User.create(newUser)
-  return res.send(createdUser)
+
+  const verificationCode = Math.random().toString(36).slice(2)
+
+  await sendEmail({
+    from: process.env.EMAIL_USER,
+    sender: 'no-reply@memoize.com',
+    to: createdUser.email,
+    text: `The verification code is: ${verificationCode}`
+  });
+
+  return res.send(`User with email ${createdUser.email} has been created`)
 })
 
 module.exports = router
