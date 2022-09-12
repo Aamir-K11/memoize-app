@@ -18,6 +18,8 @@ router.post('/login', async (req, res) => {
 
   if (!user) throw new BadRequestError('Invalid Email or Password')
 
+  if (!user.isVerfied) throw new BadRequestError('User account in not verified. Pleas verify your account')
+
   const confirmPassword = await bcrypt.compare(password, user.password)
 
   if (!confirmPassword) throw new BadRequestError('Invalid Email or Password')
