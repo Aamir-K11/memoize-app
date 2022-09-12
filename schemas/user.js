@@ -36,6 +36,16 @@ const UserSchema = new mongoose.Schema({
       default: false
     },
 
+  verificationCode:
+    {
+      type: String
+    },
+
+  verificationIat:
+    {
+      type: Number
+    },
+
   todolist: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ToDoList',
