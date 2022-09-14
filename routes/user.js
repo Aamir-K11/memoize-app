@@ -4,6 +4,7 @@ const User = require('../schemas/user')
 const { BadRequestError } = require('../errors')
 const { ToDoList } = require('../schemas/to-do-list')
 const sendEmail = require('../services/email/email-service')
+const bcrypt = require('bcrypt')
 require('express-async-errors')
 
 router.post('/signup', async (req, res) => {
@@ -58,7 +59,37 @@ router.post('/verify', async (req, res) => {
 
   if (updateRes.modifiedCount == 0) return res.send('Failed to verify user. Please try again later')
 
-  res.send('User has been verified')
+  return res.send('User has been verified')
+})
+
+router.post('/verificationcode', async (req, res) => {
+  const { email, password } = req.body
+
+  if (!email && !password) throw new BadRequestError('Email or Password is missing')
+
+  const existingUser = await User.findOne({ email })
+
+  if (!existingUser) throw new BadRequestError('User does not exist')
+
+  const confirmPassword = await bcrypt.compare(password, existingUser.password)
+
+  if (!confirmPassword) throw new BadRequestError('Invalid Email or Password')
+
+  const verificationCode = Math.random().toString(36).slice(2)
+  const verificationIat = Math.floor(new Date().getTime() / 1000)
+
+  const updateRes = await User.updateOne({ email }, { verificationCode, verificationIat })
+
+  if (updateRes.modifiedCount == 0) return res.send('Failed to generate new verification code. Please try again later')
+
+  await sendEmail({
+    from: process.env.EMAIL_USER,
+    sender: 'no-reply@memoize.com',
+    to: existingUser.email,
+    text: `The verification code is: ${verificationCode}`
+  })
+
+  return res.send('New verification code has been sent on your Email')
 })
 
 module.exports = router
