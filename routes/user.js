@@ -5,6 +5,7 @@ const { BadRequestError } = require('../errors')
 const { ToDoList } = require('../schemas/to-do-list')
 const sendEmail = require('../services/email/email-service')
 const bcrypt = require('bcrypt')
+const JwtAuth = require('../middleware/jwt-auth')
 require('express-async-errors')
 
 router.post('/signup', async (req, res) => {
@@ -90,6 +91,22 @@ router.post('/verificationcode', async (req, res) => {
   })
 
   return res.send('New verification code has been sent on your Email')
+})
+
+router.post('/changepassword', [JwtAuth], async (req, res) => {
+  const { newPassword } = req.body
+
+  if (!newPassword) throw new BadRequestError('Please enter new password')
+
+  const existingUser = await User.findOne({ email: req.user.email })
+
+  if (!existingUser) throw new BadRequestError('User does not exist')
+
+  existingUser.password = newPassword
+
+  await existingUser.save()
+
+  return res.send('User\'s password has been changed')
 })
 
 module.exports = router
