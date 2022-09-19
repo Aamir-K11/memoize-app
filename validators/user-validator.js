@@ -16,6 +16,12 @@ const Validators = {
       body('verificationCode').notEmpty(),
       body('verificationIat').notEmpty()
     ]
+  },
+  validateEmailAndVerification: () => {
+    return [
+      body('email').notEmpty().isEmail().normalizeEmail(),
+      body('verificationCode').notEmpty()
+    ]
   }
 }
 

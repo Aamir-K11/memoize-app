@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../schemas/user')
+const Validator = require('../validators/user-validator')
+const handleValidator = require('../middleware/run-validator')
 const UserController = require('../controllers/user')
 const { BadRequestError } = require('../errors')
 const sendEmail = require('../services/email/email-service')
@@ -9,40 +11,22 @@ const JwtAuth = require('../middleware/jwt-auth')
 require('express-async-errors')
 
 router.post('/signup',
-  UserController.findUserByEmail,
-  UserController.ifUserAlreadyExists,
-  UserController.createNewUser,
+  UserController.checkIfUserAlreadyExists,
   UserController.getUserVerificationData,
+  Validator.validateNewUser(),
+  handleValidator,
+  UserController.createNewUser,
   UserController.sendVerificationEmail,
-  async (req, res) => {
-    return res.send(`User with email ${req.user.email} has been created`)
-  })
+  (req, res) => res.send(`User with email ${req.body.email} has been created`))
 
-router.post('/verify', async (req, res) => {
-  const { email, verificationCode } = req.body
-
-  if (!email && !verificationCode) throw new BadRequestError('Email or verificationCode is missing')
-
-  const existingUser = await User.findOne({ email })
-
-  if (!existingUser) throw new BadRequestError('Invalid Email')
-
-  if (existingUser.isVerified) throw new BadRequestError('User is already verified')
-
-  const newVerificationIat = Math.floor(new Date().getTime() / 1000)
-
-  const userVerificationIat = existingUser.verificationIat
-
-  if (newVerificationIat - userVerificationIat > 600) throw new BadRequestError('Verification code is expired')
-
-  if (verificationCode !== existingUser.verificationCode) throw new BadRequestError('Invalid verification code')
-
-  const updateRes = await User.updateOne({ email }, { isVerified: true, verificationCode: '', verificationIat: 0 })
-
-  if (updateRes.modifiedCount == 0) return res.send('Failed to verify user. Please try again later')
-
-  return res.send('User has been verified')
-})
+router.post('/verify',
+  Validator.validateEmailAndVerification(),
+  handleValidator,
+  UserController.findUserByEmail,
+  UserController.checkIfUserVerified,
+  UserController.checkVerificationIat,
+  UserController.verifyUser,
+  (req, res) => res.send(`User ${req.user.email} has been verified`))
 
 router.post('/verificationcode', async (req, res) => {
   const { email, password } = req.body

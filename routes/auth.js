@@ -8,7 +8,7 @@ router.post('/login',
   Validators.validateEmailAndPassword(),
   handleValidator,
   UserController.findUserByEmail,
-  UserController.ifUserVerified,
+  UserController.checkIfUserUnverified,
   UserController.validatePassword,
   UserController.getJWTToken,
   async (req, res) => {
