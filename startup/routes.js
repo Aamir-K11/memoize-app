@@ -4,7 +4,7 @@ const User = require('../routes/user')
 const Auth = require('../routes/auth')
 const errorHandler = require('../middleware/error-handler')
 
-module.exports = function (app) {
+const setupRoutes = (app) => {
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use('/todo', toDo)
@@ -12,3 +12,4 @@ module.exports = function (app) {
   app.use('/auth', Auth)
   app.use(errorHandler)
 }
+module.exports = setupRoutes
