@@ -1,10 +1,22 @@
 const { body } = require('express-validator')
 
-const validateEmailAndPassword = () => {
-  return [
-    body('email').notEmpty().isEmail(),
-    body('password').notEmpty().isLength({ min: 8 })
-  ]
+const Validators = {
+  validateEmailAndPassword: () => {
+    return [
+      body('email').notEmpty().isEmail().normalizeEmail(),
+      body('password').notEmpty().isLength({ min: 8 })
+    ]
+  },
+  validateNewUser: () => {
+    return [
+      body('firstname').notEmpty(),
+      body('lastname').notEmpty(),
+      body('email').notEmpty().isEmail().normalizeEmail(),
+      body('password').notEmpty().isLength({ min: 8 }),
+      body('verificationCode').notEmpty(),
+      body('verificationIat').notEmpty()
+    ]
+  }
 }
 
-module.exports = validateEmailAndPassword
+module.exports = Validators

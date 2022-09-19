@@ -1,41 +1,22 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../schemas/user')
+const UserController = require('../controllers/user')
 const { BadRequestError } = require('../errors')
-const { ToDoList } = require('../schemas/to-do-list')
 const sendEmail = require('../services/email/email-service')
 const bcrypt = require('bcrypt')
 const JwtAuth = require('../middleware/jwt-auth')
 require('express-async-errors')
 
-router.post('/signup', async (req, res) => {
-  const newUser =
-        {
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          email: req.body.email,
-          password: req.body.password,
-          verificationCode: Math.random().toString(36).slice(2),
-          verificationIat: Math.floor(new Date().getTime() / 1000)
-        }
-
-  const existingUser = await User.findOne({ email: newUser.email })
-
-  if (existingUser) throw new BadRequestError('Email already associated with a user')
-
-  newUser.todolist = await ToDoList.create({})
-
-  const createdUser = await User.create(newUser)
-
-  await sendEmail({
-    from: process.env.EMAIL_USER,
-    sender: 'no-reply@memoize.com',
-    to: createdUser.email,
-    text: `The verification code is: ${createdUser.verificationCode}`
+router.post('/signup',
+  UserController.findUserByEmail,
+  UserController.ifUserAlreadyExists,
+  UserController.createNewUser,
+  UserController.getUserVerificationData,
+  UserController.sendVerificationEmail,
+  async (req, res) => {
+    return res.send(`User with email ${req.user.email} has been created`)
   })
-
-  return res.send(`User with email ${createdUser.email} has been created`)
-})
 
 router.post('/verify', async (req, res) => {
   const { email, verificationCode } = req.body
