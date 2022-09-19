@@ -6,6 +6,6 @@ module.exports = function (err, req, res, next) {
   res.status(err.statusCode).json({
     status: err.status,
     statusCode: err.statusCode,
-    message: err.message
+    message: [err.message]
   })
 }

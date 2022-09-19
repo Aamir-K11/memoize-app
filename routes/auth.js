@@ -3,16 +3,14 @@ const router = express.Router()
 const User = require('../schemas/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const validateEmailAndPassword = require('../validators/user-validator')
+const handleValidator = require('../middleware/run-validator')
 const { BadRequestError } = require('../errors')
 require('express-async-errors')
 require('dotenv').config()
 
-router.post('/login', async (req, res) => {
+router.post('/login', validateEmailAndPassword(), handleValidator, async (req, res) => {
   const { email, password } = req.body
-
-  if (!(email && password)) {
-    throw new BadRequestError('Please enter your login credentials')
-  }
 
   const user = await User.findOne({ email })
 
