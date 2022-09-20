@@ -16,7 +16,8 @@ const ToDoSchema = new mongoose.Schema({
 
   priority: {
     type: String,
-    enum: ['HIGH', 'MEDIUM', 'LOW']
+    enum: ['HIGH', 'MEDIUM', 'LOW'],
+    required: true
   },
 
   createdAt: {

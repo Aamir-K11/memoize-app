@@ -2,26 +2,23 @@ const express = require('express')
 const router = express.Router()
 const { ToDoList } = require('../schemas/to-do-list')
 const JwtAuth = require('../middleware/jwt-auth')
+const Validator = require('../validators/to-do')
+const handleValidator = require('../middleware/run-validator')
+const ToDoController = require('../controllers/to-do')
 const { BadRequestError } = require('../errors')
 require('express-async-errors')
 
-router.post('/', [JwtAuth], async (req, res) => {
-  const toDoObject = {
-    title: req.body.title,
-    description: req.body.description,
-    priority: req.body.priority
-  }
-  const todolist = await ToDoList.updateOne({ _id: req.user.todolist_id }, { $push: { todos: toDoObject } }, { runValidators: true })
+router.post('/',
+  JwtAuth,
+  Validator.validateNewToDo(),
+  handleValidator,
+  ToDoController.createNewToDo,
+  async (req, res) => {
+    return res.send('ToDo list has been updated')
+  })
 
-  if (todolist.modifiedCount === 0) return res.send('ToDo list has not been updated')
-
-  return res.send('ToDo list has been updated')
-})
-
-router.get('/', [JwtAuth], async (req, res) => {
-  const { todos } = await ToDoList.findOne({ _id: req.user.todolist_id }).select('todos').lean()
-
-  return res.send(todos)
+router.get('/', JwtAuth, ToDoController.getToDos, async (req, res) => {
+  return res.send(req.body.todos)
 })
 
 router.put('/', [JwtAuth], async (req, res) => {
