@@ -22,6 +22,12 @@ const Validators = {
       body('email').notEmpty().isEmail().normalizeEmail(),
       body('verificationCode').notEmpty()
     ]
+  },
+  validateNewPassword: () => {
+    return [
+      body('email').notEmpty().isEmail().normalizeEmail(),
+      body('newPassword').notEmpty().isLength({ min: 8 })
+    ]
   }
 }
 

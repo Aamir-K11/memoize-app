@@ -1,11 +1,10 @@
 const User = require('../schemas/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { BadRequestError } = require('../errors')
+const { BadRequestError, InternalServerError } = require('../errors')
 const sendEmail = require('../services/email/email-service')
 const { ToDoList } = require('../schemas/to-do-list')
 require('express-async-errors')
-require('dotenv').config()
 
 const UserController = {
   findUserByEmail: async (req, res, next) => {
@@ -36,19 +35,25 @@ const UserController = {
   },
 
   sendVerificationEmail: async (req, res, next) => {
-    await sendEmail({
-      from: process.env.EMAIL_USER,
-      sender: 'no-reply@memoize.com',
-      subject: 'User Verification Code',
-      to: req.body.email,
-      text: `The verification code is: ${req.body.verificationCode}`
-    })
+    try {
+      await sendEmail({
+        from: process.env.EMAIL_USER,
+        sender: 'no-reply@memoize.com',
+        subject: 'User Verification Code',
+        to: req.body.email,
+        text: `The verification code is: ${req.body.verificationCode}`
+      })
+    } catch (e) {
+      throw new InternalServerError('Email service is down!')
+    }
   },
 
   verifyUser: async (req, res, next) => {
     const updateRes = await User.updateOne({ email: req.body.email }, { isVerified: true, verificationCode: '', verificationIat: 0 })
 
     if (updateRes.modifiedCount == 0) return res.send('Failed to verify user. Please try again later')
+
+    return next()
   },
 
   checkVerificationIat: async (req, res, next) => {
@@ -58,7 +63,9 @@ const UserController = {
 
     if (newVerificationIat - userVerificationIat > 600) throw new BadRequestError('Verification code is expired')
 
-    if (req.body.user.enteredverificationCode !== req.body.verificationCode) throw new BadRequestError('Invalid verification code')
+    if (req.body.user.verificationCode !== req.body.verificationCode) throw new BadRequestError('Invalid verification code')
+
+    return next()
   },
 
   checkIfUserUnverified: async (req, res, next) => {
@@ -76,7 +83,7 @@ const UserController = {
   validatePassword: async (req, res, next) => {
     const confirmPassword = await bcrypt.compare(req.body.password, req.body.user.password)
 
-    if (!confirmPassword) throw new BadRequestError('Invalid Email or Password')
+    if (!confirmPassword) throw new BadRequestError('Invalid Password')
 
     return next()
   },
@@ -95,8 +102,24 @@ const UserController = {
   },
 
   getUserVerificationData: async (req, res, next) => {
-    req.body.user.verificationCode = Math.random().toString(36).slice(2)
-    req.body.user.verificationIat = Math.floor(new Date().getTime() / 1000)
+    req.body.verificationCode = Math.random().toString(36).slice(2)
+    req.body.verificationIat = Math.floor(new Date().getTime() / 1000)
+
+    return next()
+  },
+
+  updateUserVerificationData: async (req, res, next) => {
+    const updateRes = await User.updateOne({ email: req.body.email }, { verificationCode: req.body.verificationCode, verificationIat: req.body.verificationIat })
+
+    if (updateRes.modifiedCount == 0) return res.send('Failed to generate new verification code. Please try again later')
+
+    return next()
+  },
+
+  changePassword: async (req, res, next) => {
+    req.body.user.password = req.body.newPassword
+
+    await req.body.user.save()
 
     return next()
   }
