@@ -1,34 +1,40 @@
-const { body } = require('express-validator')
+const { BadRequestError } = require('../errors')
+const UserValidatorSchema = require('./validator-schemas/user')
 
-const Validators = {
-  validateEmailAndPassword: () => {
-    return [
-      body('email').notEmpty().isEmail().normalizeEmail(),
-      body('password').notEmpty().isLength({ min: 8 })
-    ]
-  },
-  validateNewUser: () => {
-    return [
-      body('firstname').notEmpty(),
-      body('lastname').notEmpty(),
-      body('email').notEmpty().isEmail().normalizeEmail(),
-      body('password').notEmpty().isLength({ min: 8 }),
-      body('verificationCode').notEmpty(),
-      body('verificationIat').notEmpty()
-    ]
-  },
-  validateEmailAndVerification: () => {
-    return [
-      body('email').notEmpty().isEmail().normalizeEmail(),
-      body('verificationCode').notEmpty()
-    ]
-  },
-  validateNewPassword: () => {
-    return [
-      body('email').notEmpty().isEmail().normalizeEmail(),
-      body('newPassword').notEmpty().isLength({ min: 8 })
-    ]
-  }
+const validateNewUserInput = (verifyUserInput) => {
+  const { error } = UserValidatorSchema.newUserInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
 }
 
-module.exports = Validators
+const validateVerifyUserInput = (verifyUserInput) => {
+  const { error } = UserValidatorSchema.verifyUserInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
+}
+
+const validateverificationCodeInput = (verifyUserInput) => {
+  const { error } = UserValidatorSchema.verificationCodeInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
+}
+
+const validatechangePasswordInput = (verifyUserInput) => {
+  const { error } = UserValidatorSchema.changePasswordInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
+}
+
+const validateLoginInput = (verifyUserInput) => {
+  const { error } = UserValidatorSchema.loginInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
+}
+
+module.exports = {
+  validateNewUserInput,
+  validateVerifyUserInput,
+  validateverificationCodeInput,
+  validatechangePasswordInput,
+  validateLoginInput
+}

@@ -1,18 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const UserController = require('../controllers/user')
-const Validators = require('../validators/user-validator')
-const handleValidator = require('../middleware/run-validator')
 
-router.post('/login',
-  Validators.validateEmailAndPassword(),
-  handleValidator,
-  UserController.findUserByEmail,
-  UserController.checkIfUserUnverified,
-  UserController.validatePassword,
-  UserController.getJWTToken,
-  async (req, res) => {
-    return res.send(req.jwtToken)
-  })
+router.post('/login', UserController.login)
 
 module.exports = router
