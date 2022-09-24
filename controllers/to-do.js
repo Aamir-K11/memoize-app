@@ -24,7 +24,7 @@ require('express-async-errors')
 // }
 
 const createNewToDo = async (req, res) => {
-  await ToDoService.createNewToDo(req.user.todolist_id, req.body)
+  await ToDoService.createNewToDo(req.user.todolist, req.body)
 
   return res.send('ToDo has been created')
 }

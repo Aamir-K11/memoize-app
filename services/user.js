@@ -34,11 +34,12 @@ const validatePassword = async (receivedPassword, userPassword) => {
   if (!confirmPassword) throw new BadRequestError('Invalid Password')
 }
 
-const getJWTToken = async ({ _id, email }) => {
+const getJWTToken = async ({ _id, email, todolist }) => {
   const jwtToken = await jwt.sign(
     {
       _id,
-      email
+      email,
+      todolist
     }, process.env.JWT_PRIVATE_KEY, { expiresIn: '1h' })
 
   return jwtToken

@@ -9,7 +9,6 @@ const newToDoInputSchema = Joi.object({
 
   priority: Joi.string()
     .uppercase()
-    .vallid(['HIGH, MEDIUM, LOW'])
 }
 )
 
