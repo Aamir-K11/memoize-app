@@ -1,21 +1,9 @@
 const express = require('express')
 const router = express.Router()
-// const { ToDoList } = require('../schemas/to-do-list')
-// const JwtAuth = require('../middleware/jwt-auth')
-// const Validator = require('../validators/to-do')
-// const handleValidator = require('../middleware/run-validator')
-// const ToDoController = require('../controllers/to-do')
-// const { BadRequestError } = require('../errors')
-// require('express-async-errors')
+const JwtAuth = require('../middleware/jwt-auth')
+const ToDoController = require('../controllers/to-do')
 
-// router.post('/',
-//   JwtAuth,
-//   Validator.validateNewToDo(),
-//   handleValidator,
-//   ToDoController.createNewToDo,
-//   async (req, res) => {
-//     return res.send('ToDo list has been updated')
-//   })
+router.post('/', JwtAuth, ToDoController.createNewToDo)
 
 // router.get('/', JwtAuth, ToDoController.getToDos, async (req, res) => {
 //   return res.send(req.body.todos)
