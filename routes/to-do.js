@@ -5,9 +5,7 @@ const ToDoController = require('../controllers/to-do')
 
 router.post('/', JwtAuth, ToDoController.createNewToDo)
 
-// router.get('/', JwtAuth, ToDoController.getToDos, async (req, res) => {
-//   return res.send(req.body.todos)
-// })
+router.get('/', JwtAuth, ToDoController.getToDos)
 
 // router.put('/', [JwtAuth], async (req, res) => {
 //   const { toDoId, title, description, priority } = req.body

@@ -9,6 +9,11 @@ const createNewToDo = async (_id, toDoObject) => {
   if (todolist.modifiedCount === 0) throw new BadRequestError('Failed to update ToDo list')
 }
 
+const getToDos = async (_id) => {
+  return await ToDoDBService.getToDos(_id)
+}
+
 module.exports = {
-  createNewToDo
+  createNewToDo,
+  getToDos
 }
