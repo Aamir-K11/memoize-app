@@ -7,6 +7,13 @@ const validateNewToDoInput = (verifyUserInput) => {
   if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
 }
 
+const validateUpdateToDoInput = (verifyUserInput) => {
+  const { error } = ToDoValidatorSchema.updateToDoInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
+}
+
 module.exports = {
-  validateNewToDoInput
+  validateNewToDoInput,
+  validateUpdateToDoInput
 }

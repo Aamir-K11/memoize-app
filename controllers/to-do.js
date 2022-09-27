@@ -13,7 +13,14 @@ const getToDos = async (req, res) => {
   return res.send(toDos)
 }
 
+const updateToDos = async (req, res) => {
+  await ToDoService.updateToDos(req.user.todolist, req.body)
+
+  return res.send('ToDo has been updated')
+}
+
 module.exports = {
   createNewToDo,
-  getToDos
+  getToDos,
+  updateToDos
 }
