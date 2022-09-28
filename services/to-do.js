@@ -29,8 +29,20 @@ const updateToDos = async (_id, toDoObject) => {
   await ToDoDBService.saveToDo(toDoList)
 }
 
+const deleteToDo = async (_id, toDoId) => {
+  ToDoValidator.validateDeleteToDoInput(toDoId)
+
+  const toDoList = await ToDoDBService.findToDoList(_id)
+  const toDo = toDoList.todos.id(toDoId.toDoId)
+  if (!toDo) throw new BadRequestError('ToDo item does not exist')
+
+  toDo.remove()
+  await ToDoDBService.saveToDo(toDoList)
+}
+
 module.exports = {
   createNewToDo,
   getToDos,
-  updateToDos
+  updateToDos,
+  deleteToDo
 }

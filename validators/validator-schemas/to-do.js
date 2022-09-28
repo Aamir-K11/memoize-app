@@ -27,7 +27,13 @@ const updateToDoInputSchema = Joi.object({
 }
 )
 
+const deleteToDoInputSchema = Joi.object({
+  toDoId: Joi.string()
+    .required()
+})
+
 module.exports = {
   newToDoInputSchema,
-  updateToDoInputSchema
+  updateToDoInputSchema,
+  deleteToDoInputSchema
 }

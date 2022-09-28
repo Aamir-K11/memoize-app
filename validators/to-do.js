@@ -13,7 +13,14 @@ const validateUpdateToDoInput = (verifyUserInput) => {
   if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
 }
 
+const validateDeleteToDoInput = (verifyUserInput) => {
+  const { error } = ToDoValidatorSchema.deleteToDoInputSchema.validate(verifyUserInput)
+
+  if (error) throw new BadRequestError([...error.details.map((v) => v.message)])
+}
+
 module.exports = {
   validateNewToDoInput,
-  validateUpdateToDoInput
+  validateUpdateToDoInput,
+  validateDeleteToDoInput
 }

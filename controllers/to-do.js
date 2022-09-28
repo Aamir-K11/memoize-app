@@ -19,8 +19,15 @@ const updateToDos = async (req, res) => {
   return res.send('ToDo has been updated')
 }
 
+const deleteToDo = async (req, res) => {
+  await ToDoService.deleteToDo(req.user.todolist, req.body)
+
+  return res.send('ToDo has been deleted')
+}
+
 module.exports = {
   createNewToDo,
   getToDos,
-  updateToDos
+  updateToDos,
+  deleteToDo
 }
