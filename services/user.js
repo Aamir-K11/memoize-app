@@ -127,5 +127,6 @@ module.exports = {
   verify,
   verificationCode,
   changePassword,
-  login
+  login,
+  sendVerificationEmail
 }
