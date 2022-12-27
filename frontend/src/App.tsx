@@ -1,10 +1,12 @@
+import Layout from "./layout/layout"
+import Login from "./pages/login"
 
 function App() {
   
   return (
-    <div className="App">
-       
-    </div>
+    <Layout>
+        <Login/>
+    </Layout>
   )
 }
 
