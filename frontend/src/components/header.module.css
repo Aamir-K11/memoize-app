@@ -5,6 +5,13 @@ header {
     position: relative;
 }
 
+.custom-signup-btn {
+    height: 40px;
+    padding: 10px 10px;
+    background: transparent;
+    border: 1px solid #ffffff;
+}
+
 nav {
     display: flex;
     align-items: center;
@@ -12,9 +19,9 @@ nav {
 }
 
 .logo {
-    width: 120px;
+    width: 100px;
     padding: 0;
-    margin: 0;
+    margin-top: 10px;
 }
 
 .nav-links {
