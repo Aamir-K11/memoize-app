@@ -1,0 +1,12 @@
+input {
+    border: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: #9a9a9a;
+    padding: 10px;
+    border-radius: 5px;
+    width: 250px;
+    outline: none;
+    margin-bottom: 10px;
+}
