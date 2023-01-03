@@ -1,12 +1,13 @@
 header {
-    height: 10vh;
+    max-height: 8rem;
+    min-height: 4rem;
     padding: 0 8%;
     background: #080008;
     position: relative;
 }
 
 .custom-signup-btn {
-    height: 40px;
+    height: 2.5rem;
     padding: 10px 10px;
     background: transparent;
     border: 1px solid #ffffff;

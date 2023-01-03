@@ -1,11 +1,11 @@
 import React from "react";
 import classes from './textinput.module.css';
 
-type TextInputType = {errorMessage: string; isError: boolean} | React.InputHTMLAttributes<HTMLInputElement>
+type TextInputType = {errorMessage: string; isError: boolean} & React.InputHTMLAttributes<HTMLInputElement>
 
 const TextInput = (props: TextInputType) => {
 
-    const {errorMessage, isError, id, name, value, onChange, className, placeholder} = props;
+    const {errorMessage, isError, id, name, value, onChange, className, placeholder, type} = props;
     return (
         <>
         <input 
