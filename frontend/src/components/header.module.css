@@ -1,6 +1,7 @@
 header {
     max-height: 8rem;
     min-height: 4rem;
+    min-width: 38rem;
     padding: 0 8%;
     background: #080008;
     position: relative;
@@ -20,19 +21,19 @@ nav {
 }
 
 .logo {
-    width: 100px;
+    width: 7rem;
     padding: 0;
-    margin-top: 10px;
+    margin-top: 1rem;
 }
 
 .nav-links {
-    padding: 28px 0;
+    padding: 10rem 0;
     margin: 0;
     padding: 0;
 }
 
 .nav-links li {
     display: inline-block;
-    margin: 0 15px;
+    margin: 0 3rem;
     color: #ffffff;
 }
