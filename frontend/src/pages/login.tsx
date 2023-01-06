@@ -1,30 +1,27 @@
-import React, { useState } from "react";
-import Button from "../components/button";
-import TextInput from "../components/TextInput";
+import { useForm, SubmitHandler } from "react-hook-form";
+import inputClasses from '../components/textinput.module.css';
 import classes from "./login.module.css";
 
+type LoginFormInput = {
+    email: string;
+    password: string;
+};
+
 const Login = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInput>();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isEmailError, setIsEmailError] = useState(false);
-    const [isPasswordError, setIsPasswordError] = useState(false);
-
-    const onSubmitHandler = (e: React.SyntheticEvent) => {
-            e.preventDefault();
-            console.log(e);
+    const onSubmitHandler: SubmitHandler<LoginFormInput> = (data) => {
+            console.log(data);
     }
-
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-    
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
     return (
     <div className={classes['login-container']}>
-        <form onSubmit = {onSubmitHandler} className={classes['login-form']}>
-            <TextInput type="email" id="email" name="email" value={email} onChange={handleEmailChange} isError = {isEmailError} errorMessage = "Incorrect Email"/>
-            <TextInput type="password" id="password" name="password" value={password} onChange={handlePasswordChange} isError = {isPasswordError} errorMessage = "Incorrect Password"/>
-            <Button text="Login" onClick={(event: React.MouseEvent<HTMLButtonElement>) => console.log("Login") }/>
+        <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['login-form']}>
+            <input  type="email"    {...register("email", { required: 'Email is required', maxLength: 20 })} className = {inputClasses.input}/>
+            {errors.email && <span>{errors.email.message}</span>}
+            <input  type="password" {...register("password", { required: 'Password is required', maxLength: 20 })} className = {inputClasses.input}/>
+            {errors.password && <span>{errors.password.message}</span>}
+            <input type="submit"/>
         </form>
     </div>);
 }
