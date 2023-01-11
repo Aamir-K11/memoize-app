@@ -32,6 +32,7 @@ const Login = () => {
                 <span className= {inputClasses["placeholder"]}>Password</span>
             </label>
             <Button type="submit" text="Submit"/>
+            <p>Not registered yet? Signup</p>
         </form>
     </div>);
 }
