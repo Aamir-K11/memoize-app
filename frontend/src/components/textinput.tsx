@@ -1,26 +1,19 @@
 import React from "react";
-import classes from './textinput.module.css';
+import { Path, UseFormRegister } from "react-hook-form";
+import { IFormInput } from "../interfaces/form";
+import classes from './input.module.css';
 
-type TextInputType = {errorMessage: string; isError: boolean} & React.InputHTMLAttributes<HTMLInputElement>
+type InputProps = {
+    label: Path<IFormInput>;
+    register: UseFormRegister<IFormInput>;
+    required: boolean;
+};
 
-const TextInput = (props: TextInputType) => {
+const Input = ({ label, register, required }: InputProps) => (
+    <>
+      <label className={classes["__form-label"]}>{label}</label>
+      <input className={classes["__form-input"]} {...register(label, { required })} />
+    </>
+  );
 
-    const {errorMessage, isError, id, name, value, onChange, className, placeholder, type} = props;
-    return (
-        <>
-        <input 
-            type={type} 
-            id={id} 
-            name={name} 
-            value={value} 
-            onChange={onChange}  
-            className = {className ? `${classes.input} ${className}` : classes.input}
-        >
-        </input>
-        {isError && <p>{errorMessage}</p>}
-        </>
-        
-    );
-}
-
-export default TextInput;
+export default Input;

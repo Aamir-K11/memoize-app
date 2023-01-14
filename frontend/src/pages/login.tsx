@@ -1,11 +1,12 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { IFormInput} from "../interfaces/form";
 import Button from "../components/button";
 import inputClasses from '../components/textinput.module.css';
 import classes from "./login.module.css";
 import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-type LoginFormInput = {
+interface LoginFormInput extends IFormInput {
     email: string;
     password: string;
 };
