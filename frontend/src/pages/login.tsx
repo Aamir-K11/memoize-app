@@ -1,14 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { IFormInput} from "../interfaces/form";
 import Button from "../components/button";
-import inputClasses from '../components/textinput.module.css';
 import classes from "./login.module.css";
 import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
+import Input from "../components/input";
 
-interface LoginFormInput extends IFormInput {
-    email: string;
-    password: string;
+interface LoginFormInput {
+    Email: string;
+    Password: string;
 };
 
 const onSubmitHandler: SubmitHandler<LoginFormInput> = (data) => console.log(data);
@@ -20,22 +19,12 @@ const Login = () => {
     );
 
     return (
-    <div className={classes['login-container']}>
-        <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['login-form']}>
-            <label className={inputClasses["custom-label"]}>
-                <input  type="email" {...register("email")} className = {inputClasses.input}/>
-                <span className= {inputClasses["placeholder"]}>Email</span>
-                {errors.email && <span className={inputClasses['error-message']}>{errors.email?.message}</span>}
-            </label>
-            <label className={inputClasses["custom-label"]}>
-                <input  type="password" {...register("password")} className = {inputClasses.input}/>
-                {errors.password && <span className={inputClasses['error-message']}>{errors.password?.message}</span>}
-                <span className= {inputClasses["placeholder"]}>Password</span>
-            </label>
-            <Button type="submit" text="Submit"/>
+        <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['__login-form']}>
+            <Input type="email" label="Email" register={register} required/>
+            <Input type="password" label="Password" register={register} required/>
+            <Button className="__form-button" type="submit" text="Submit"/>
             <p>Not registered yet? Signup</p>
-        </form>
-    </div>);
+        </form>);
 }
 
 export default Login;
