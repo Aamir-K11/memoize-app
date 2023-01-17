@@ -37,3 +37,13 @@ nav {
     margin: 0 3rem;
     color: #ffffff;
 }
+
+@media only screen and (max-width: 600px) {
+    nav {
+      flex-direction: column;
+    }
+    
+    header {
+        min-height: 8rem;
+    }
+  }
