@@ -11,3 +11,7 @@
     justify-content: center;
     align-items: center;
 }
+
+.__form-message {
+    margin-top: 1rem;
+}
