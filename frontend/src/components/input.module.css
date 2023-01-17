@@ -30,3 +30,7 @@
     margin-left: 0.5rem;
     background-color: white;
   }
+
+  .__form-input[aria-invalid='true'] {
+    border-color: red;
+  }

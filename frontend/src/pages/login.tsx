@@ -20,9 +20,9 @@ const Login = () => {
 
     return (
         <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['__login-form']}>
-            <Input type="email" label="Email" register={register} required/>
-            <Input type="password" label="Password" register={register} required/>
-            <Button className="__form-button" type="submit" text="Submit"/>
+            <Input type="email" label="Email" register={register} error={errors.Email} required/>
+            <Input type="password" label="Password" register={register} required error={errors.Password}/>
+            <input type="submit"/>
             <p>Not registered yet? Signup</p>
         </form>);
 }
