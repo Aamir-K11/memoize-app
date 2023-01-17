@@ -1,18 +1,20 @@
 import { Path, UseFormRegister } from "react-hook-form";
-import { FieldValues } from "react-hook-form/dist/types";
+import { FieldError, FieldValues } from "react-hook-form/dist/types";
 import classes from './input.module.css';
 
 interface InputProps<T extends FieldValues> {
     label: Path<T>;
     register: UseFormRegister<T>;
     required: boolean;
-    type: string
+    type: string;
+    error: FieldError | undefined;
 };
 
-const Input = <T extends FieldValues>({ type, label, register, required }: InputProps<T>) => (
+const Input = <T extends FieldValues>({ type, label, register, error, required }: InputProps<T>) => (
     <>
-      <input type={type} className={classes["__form-input"]} {...register(label, { required })} placeholder=" "/>
+      <input type={type} className={classes["__form-input"]} {...register(label, { required })} placeholder=" " aria-invalid = {error ? "true" : "false"}/>
       <label className={classes["__form-label"]}>{label}</label>
+      {error?.message && <p>{error?.message}</p>}
     </>
   );
 
