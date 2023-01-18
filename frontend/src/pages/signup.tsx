@@ -17,13 +17,13 @@ const SignUp = () => {
     );
 
     return (
-        <form className={classes['__login-form']}>
+        <form className={classes['__form']}>
             <Input type="text" label="Firstname" register={register} required/>
             <Input type="text" label="Lastname" register={register} required/>
             <Input type="email" label="Email" register={register} required/>
             <Input type="password" label="Password" register={register} required/>
             <input type="submit"/>
-            <p>Already a user? Login</p>
+            <p className={classes['__form-message']}>Already a user? Login</p>
         </form>);
 }
 
