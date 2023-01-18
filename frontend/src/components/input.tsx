@@ -7,7 +7,7 @@ interface InputProps<T extends FieldValues> {
     register: UseFormRegister<T>;
     required: boolean;
     type: string;
-    error: FieldError | undefined;
+    error?: FieldError;
 };
 
 const Input = <T extends FieldValues>({ type, label, register, error, required }: InputProps<T>) => (
