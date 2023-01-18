@@ -1,6 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import Button from "../components/button";
-import classes from "./login.module.css";
+import classes from "./form.module.css";
 import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../components/input";
@@ -19,7 +18,7 @@ const Login = () => {
     );
 
     return (
-        <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['__login-form']}>
+        <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['__form']}>
             <Input type="email" label="Email" register={register} error={errors.Email} required/>
             <Input type="password" label="Password" register={register} required error={errors.Password}/>
             <input type="submit"/>

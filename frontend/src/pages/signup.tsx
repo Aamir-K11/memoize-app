@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {useForm} from 'react-hook-form';
 import Input from '../components/input';
 import signUpSchema from '../schemas/signup';
-import classes from './login.module.css';
+import classes from './form.module.css';
 
 interface SignUpInput {
     Firstname: String;
@@ -17,13 +17,13 @@ const SignUp = () => {
     );
 
     return (
-        <form className={classes['__login-form']}>
+        <form className={classes['__form']}>
             <Input type="text" label="Firstname" register={register} required/>
             <Input type="text" label="Lastname" register={register} required/>
             <Input type="email" label="Email" register={register} required/>
             <Input type="password" label="Password" register={register} required/>
             <input type="submit"/>
-            <p>Already a user? Login</p>
+            <p className={classes['__form-message']}>Already a user? Login</p>
         </form>);
 }
 
