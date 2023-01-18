@@ -1,6 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import Button from "../components/button";
-import classes from "./login.module.css";
+import classes from "./form.module.css";
 import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../components/input";

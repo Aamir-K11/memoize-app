@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {useForm} from 'react-hook-form';
 import Input from '../components/input';
 import signUpSchema from '../schemas/signup';
-import classes from './login.module.css';
+import classes from './form.module.css';
 
 interface SignUpInput {
     Firstname: String;
