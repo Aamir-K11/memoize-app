@@ -23,7 +23,7 @@ const Login = () => {
             <Input type="email" label="Email" register={register} error={errors.Email} required/>
             <Input type="password" label="Password" register={register} required error={errors.Password}/>
             <input type="submit"/>
-            <p>Not registered yet? Signup</p>
+            <p className={classes['__form-message']}>Not registered yet? Signup</p>
         </form>);
 }
 

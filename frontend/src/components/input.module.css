@@ -34,3 +34,9 @@
   .__form-input[aria-invalid='true'] {
     border-color: red;
   }
+
+  .__error-message {
+    color: red;
+    margin-top:0px;
+    padding-top:0px;
+  }

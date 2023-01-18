@@ -14,7 +14,7 @@ const Input = <T extends FieldValues>({ type, label, register, error, required }
     <>
       <input type={type} className={classes["__form-input"]} {...register(label, { required })} placeholder=" " aria-invalid = {error ? "true" : "false"}/>
       <label className={classes["__form-label"]}>{label}</label>
-      {error?.message && <p>{error?.message}</p>}
+      {error?.message && <p className={classes['__error-message']}>{`* ${error?.message}`}</p>}
     </>
   );
 
