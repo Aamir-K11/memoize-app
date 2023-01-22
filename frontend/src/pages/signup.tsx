@@ -5,10 +5,10 @@ import signUpSchema from '../schemas/signup';
 import classes from './form.module.css';
 
 interface SignUpInput {
-    Firstname: String;
-    Lastname: String;
-    Email: String;
-    Password: String;
+    Firstname: string;
+    Lastname: string;
+    Email: string;
+    Password: string;
 }
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpInput>({
@@ -18,10 +18,10 @@ const SignUp = () => {
 
     return (
         <form className={classes['__form']}>
-            <Input type="text" label="Firstname" register={register} required/>
-            <Input type="text" label="Lastname" register={register} required/>
-            <Input type="email" label="Email" register={register} required/>
-            <Input type="password" label="Password" register={register} required/>
+            <Input type="text" label="Firstname" register={register} error={errors.Firstname} required/>
+            <Input type="text" label="Lastname" register={register} error={errors.Lastname} required/>
+            <Input type="email" label="Email" register={register} error={errors.Email} required/>
+            <Input type="password" label="Password" register={register} error={errors.Password} required/>
             <input type="submit"/>
             <p className={classes['__form-message']}>Already a user? Login</p>
         </form>);
