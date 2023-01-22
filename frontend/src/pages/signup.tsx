@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import {useForm} from 'react-hook-form';
+import {useForm, SubmitHandler} from 'react-hook-form';
 import Input from '../components/input';
 import signUpSchema from '../schemas/signup';
 import classes from './form.module.css';
@@ -10,6 +10,10 @@ interface SignUpInput {
     Email: string;
     Password: string;
 }
+
+
+const onSubmitHandler: SubmitHandler<SignUpInput> = (data) => console.log(data); 
+
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpInput>({
         resolver: yupResolver(signUpSchema)
@@ -17,7 +21,7 @@ const SignUp = () => {
     );
 
     return (
-        <form className={classes['__form']}>
+        <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['__form']}>
             <Input type="text" label="Firstname" register={register} error={errors.Firstname} required/>
             <Input type="text" label="Lastname" register={register} error={errors.Lastname} required/>
             <Input type="email" label="Email" register={register} error={errors.Email} required/>
