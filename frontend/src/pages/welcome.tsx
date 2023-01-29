@@ -1,5 +1,5 @@
 const Welcome = () => {
-    return <h1>Welcome to Memoize</h1>
+    return <h1>Memoize</h1>
 }
 
 export default Welcome;
