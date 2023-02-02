@@ -17,13 +17,14 @@ const Login = () => {
     );
 
     const onSubmitHandler: SubmitHandler<LoginFormInput> = (data) => {
-        axios.post('http://localhost:8000/login', {
+        axios.post('http://localhost:5000/auth/login', {
             email: data.Email,
             password: data.Password
-        }).then((res) => {
-            console.log(res);
-        }).catch((err)=>{
-            console.log(err.message);
+        }
+        ).then((res: any) => {
+            console.log(res.data);
+        }).catch((err: any)=>{
+            console.log(err.response.data.message);
         })
     };
 
