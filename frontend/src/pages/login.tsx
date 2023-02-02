@@ -21,7 +21,7 @@ const Login = () => {
             email: data.Email,
             password: data.Password
         }
-        ).then((res: any => {
+        ).then((res: any) => {
             console.log(res.data);
         }).catch((err: any)=>{
             console.log(err.response.data.message);
