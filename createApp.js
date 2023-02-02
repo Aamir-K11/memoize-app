@@ -8,9 +8,10 @@ const createApp = () => {
   const app = express()
 
   if (process.env.NODE_ENV == 'prod') {
-    app.use(cors())
     app.use(helmet())
   }
+
+  app.use(cors())
 
   setupRoutes(app)
 
