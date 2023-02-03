@@ -4,6 +4,10 @@ import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../components/input";
 import axios from "axios";
+import React from "react";
+import {useNavigate} from 'react-router-dom'
+import { AuthContext } from "../context/auth-context";
+import { AuthContextType } from "../@types/auth";
 
 interface LoginFormInput {
     Email: string;
@@ -16,13 +20,23 @@ const Login = () => {
     }   
     );
 
+    const {user, setUser} = React.useContext(AuthContext) as AuthContextType;
+
+    const navigateTo = useNavigate();
+
     const onSubmitHandler: SubmitHandler<LoginFormInput> = (data) => {
         axios.post('http://localhost:5000/auth/login', {
             email: data.Email,
             password: data.Password
         }
         ).then((res: any) => {
-            console.log(res.data);
+            setUser({
+                firstname: res.data.firstname,
+                lastname: res.data.lastname,
+                JWTtoken: res.data.JWTToken,
+                isAuth: true
+            })
+            navigateTo('/dashboard')
         }).catch((err: any)=>{
             console.log(err.response.data.message);
         })
