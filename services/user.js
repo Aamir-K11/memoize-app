@@ -119,7 +119,13 @@ const login = async (email, password) => {
 
   await validatePassword(password, existingUser.password)
 
-  return await getJWTToken(existingUser)
+  const JWTToken = await getJWTToken(existingUser)
+
+  return {
+    JWTToken,
+    firstname: existingUser.firstname,
+    lastname: existingUser.lastname
+  }
 }
 
 module.exports = {
