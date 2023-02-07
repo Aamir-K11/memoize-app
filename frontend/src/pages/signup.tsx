@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {useForm, SubmitHandler} from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import Input from '../components/input';
 import signUpSchema from '../schemas/signup';
 import classes from './form.module.css';
@@ -27,7 +28,7 @@ const SignUp = () => {
             <Input type="email" label="Email" register={register} error={errors.Email} required/>
             <Input type="password" label="Password" register={register} error={errors.Password} required/>
             <input type="submit"/>
-            <p className={classes['__form-message']}>Already a user? Login</p>
+            <p className={classes['__form-message']}>Already a user? <Link to="/login">Login</Link></p>
         </form>);
 }
 
