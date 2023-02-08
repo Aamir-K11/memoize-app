@@ -119,10 +119,10 @@ const login = async (email, password) => {
 
   await validatePassword(password, existingUser.password)
 
-  const JWTToken = await getJWTToken(existingUser)
+  const JWTtoken = await getJWTToken(existingUser)
 
   return {
-    JWTToken,
+    JWTtoken,
     firstname: existingUser.firstname,
     lastname: existingUser.lastname
   }
