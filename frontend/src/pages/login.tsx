@@ -33,7 +33,7 @@ const Login = () => {
             setUser({
                 firstname: res.data.firstname,
                 lastname: res.data.lastname,
-                JWTtoken: res.data.JWTToken,
+                JWTtoken: res.data.JWTtoken,
                 isAuth: true
             })
             navigateTo('/dashboard')
