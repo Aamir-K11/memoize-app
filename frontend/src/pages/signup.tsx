@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from 'axios';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Input from '../components/input';
@@ -12,14 +13,25 @@ interface SignUpInput {
     Password: string;
 }
 
-
-const onSubmitHandler: SubmitHandler<SignUpInput> = (data) => console.log(data); 
-
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpInput>({
         resolver: yupResolver(signUpSchema)
     }   
     );
+
+    const onSubmitHandler: SubmitHandler<SignUpInput> = (data) => {
+        axios.post('http://localhost:5000/user/signup', {
+            firstname: data.Firstname,
+            lastname: data.Lastname,
+            email: data.Email,
+            password: data.Password
+        }
+        ).then((res: any) => {
+           console.log("SignUp Success")
+        }).catch((err: any)=>{
+            console.log(err.response.data.message);
+        })
+    };
 
     return (
         <form onSubmit = {handleSubmit(onSubmitHandler)} className={classes['__form']}>
