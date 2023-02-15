@@ -16,7 +16,7 @@ const Header = () => {
         <nav className={classes.nav}>
             <img src={logo} className={classes.logo}/>
             <ul className={classes['nav-links']}>   
-                <li>Home</li>
+                <Link to={user?.isAuth ? "/dashboard" : "/"}><li>Home</li></Link>
                 <li>About</li>
                 {user?.isAuth && <li>{`${user.firstname} ${user.lastname}`}</li>}
                 { !user && URL.pathname === "/login" && (<li><Link to='/signup'><Button text="Sign Up" className={classes['custom-signup-btn']}/></Link></li>) } 
