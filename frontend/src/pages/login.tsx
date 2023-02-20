@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import classes from "./form.module.css";
 import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from "../components/input";
+import Input from "../components/input/input";
 import axios from "axios";
 import React from "react";
 import {useNavigate} from 'react-router-dom'

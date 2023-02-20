@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import Input from '../components/input';
+import Input from '../components/input/input';
 import signUpSchema from '../schemas/signup';
 import classes from './form.module.css';
 
