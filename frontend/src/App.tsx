@@ -4,6 +4,7 @@ import NotFound from "./pages/404"
 import Dashboard from "./pages/dashboard"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
+import VerifyUser from "./pages/verifyuser"
 import Welcome from "./pages/welcome"
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/verify" element={<VerifyUser/>}/>
         <Route path="/*" element={<NotFound/>}/>
       </Routes>
     </Layout>

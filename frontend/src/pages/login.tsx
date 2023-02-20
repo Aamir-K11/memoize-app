@@ -30,6 +30,9 @@ const Login = () => {
             password: data.Password
         }
         ).then((res: any) => {
+            
+            if(!res.data.isActive) navigateTo('/verify')
+
             setUser({
                 firstname: res.data.firstname,
                 lastname: res.data.lastname,

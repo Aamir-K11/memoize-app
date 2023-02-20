@@ -124,7 +124,8 @@ const login = async (email, password) => {
   return {
     JWTtoken,
     firstname: existingUser.firstname,
-    lastname: existingUser.lastname
+    lastname: existingUser.lastname,
+    isActive: existingUser.isActive
   }
 }
 
