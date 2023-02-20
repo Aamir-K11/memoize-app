@@ -1,4 +1,4 @@
-import TaskTray from "../components/task-tray";
+import TaskTray from "../components/task-tray/task-tray";
 
 const Dashboard = () => {
     return <TaskTray/>

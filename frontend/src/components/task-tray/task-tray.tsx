@@ -1,4 +1,4 @@
-import Task from "./tasks";
+import Task from "../tasks";
 import classes from './task-tray.module.css';
 
 const TaskTray = () => {

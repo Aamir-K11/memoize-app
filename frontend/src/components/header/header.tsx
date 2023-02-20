@@ -1,10 +1,10 @@
-import Button from './button';
+import Button from '../button';
 import logo from '../assets/memoize.png';
 import classes from './header.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
-import { AuthContext } from '../context/auth-context';
-import { AuthContextType } from '../@types/auth';
+import { AuthContext } from '../../context/auth-context';
+import { AuthContextType } from '../../@types/auth';
 const Header = () => {
     
     const URL = useLocation();
