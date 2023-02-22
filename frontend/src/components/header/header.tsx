@@ -1,5 +1,5 @@
-import Button from '../button';
-import logo from '../assets/memoize.png';
+import Button from '../button/button';
+import logo from '../../assets/memoize.png';
 import classes from './header.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
