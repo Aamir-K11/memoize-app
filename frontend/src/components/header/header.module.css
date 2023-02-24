@@ -1,7 +1,7 @@
 header {
     max-height: 8rem;
     min-height: 4rem;
-    min-width: 38rem;
+    min-width: 100%;
     padding: 0 8%;
     background: #080008;
     position: relative;
