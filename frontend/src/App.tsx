@@ -5,7 +5,7 @@ import Dashboard from "./pages/dashboard"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
 import VerifyUser from "./pages/verifyuser"
-import Welcome from "./pages/welcome"
+import Welcome from "./pages/welcome/welcome"
 
 function App() {
   
