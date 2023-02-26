@@ -19,7 +19,7 @@ const Header = () => {
                 <Link to={user?.isAuth ? "/dashboard" : "/"}><li>Home</li></Link>
                 <li>About</li>
                 {user?.isAuth && <li>{`${user.firstname} ${user.lastname}`}</li>}
-                { !user && URL.pathname === "/login" && (<Link to='/signup'><li>SignUp</li></Link>) } 
+                { !user && URL.pathname === "/login" && (<Link to='/signup'><li>Signup</li></Link>) } 
                 { !user && URL.pathname === "/signup" && (<Link to='/login'><li>Login</li></Link>) } 
             </ul>
         </nav>
