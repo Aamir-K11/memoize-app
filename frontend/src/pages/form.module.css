@@ -1,17 +1,16 @@
 .__form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 80vh;
-    max-width: 15rem;
-    color: black;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-top: 10rem;
+    padding: 2rem;
 }
 
 .__form-message {
     margin-top: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .__form {
+        margin-top: 2rem;
+    }
 }

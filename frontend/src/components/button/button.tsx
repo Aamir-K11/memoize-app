@@ -1,10 +1,10 @@
 import classes from './button.module.css';
 
-type ButtonProps = {text: string} & React.InputHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = React.InputHTMLAttributes<HTMLButtonElement>;
 
-const Button = ({text, onClick, className}: ButtonProps) => {
+const Button = ({children, onClick, className}: ButtonProps) => {
     return <div>
-        <button onClick = {onClick} className={className ? `${classes['primary-button']} ${className}` : classes['primary-button']}>{text}</button>
+        <button onClick = {onClick} className={className ? `${classes['primary-button']} ${className}` : classes['primary-button']}>{children}</button>
          </div>;
 }
 
