@@ -1,24 +1,10 @@
 header {
-    max-height: 8rem;
-    min-height: 5rem;
+    min-height: 2rem;
     min-width: 100%;
-    padding: 0;
     background: #080008;
-    position: relative;
-}
-
-.custom-signup-btn {
-    height: 2.5rem;
-    padding: 10px 10px;
-    background: transparent;
-    border: 1px solid #ffffff;
 }
 
 nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +13,6 @@ nav {
 .logo {
     width: 9rem;
     padding: 1rem;
-    margin: 0;
 }
 
 .nav-links li {
@@ -42,6 +27,6 @@ nav {
     }
     
     header {
-        min-height: 9rem;
+        min-height: 7rem;
     }
   }

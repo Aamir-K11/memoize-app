@@ -1,0 +1,27 @@
+.main {
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.welcome {
+    max-width: 200px;
+}
+
+.custom-welcome-btn {
+    height: 2.5rem;
+    width: 8rem;
+    margin: 1rem;
+    padding: 10px 10px;
+    border: 1px solid #ffffff;
+}
