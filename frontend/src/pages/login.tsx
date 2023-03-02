@@ -4,7 +4,7 @@ import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../components/input/input";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom'
 import { AuthContext } from "../context/auth-context";
 import { AuthContextType } from "../@types/auth";
@@ -20,7 +20,8 @@ const Login = () => {
     }   
     );
 
-    const {user, setUser} = React.useContext(AuthContext) as AuthContextType;
+    const {setUser} = React.useContext(AuthContext) as AuthContextType;
+    const [formError, setFormError] = useState('');
 
     const navigateTo = useNavigate();
 
@@ -41,7 +42,10 @@ const Login = () => {
             })
             navigateTo('/dashboard')
         }).catch((err: any)=>{
-            console.log(err.response.data.message);
+            setFormError(err.response.data.message);
+            setTimeout(()=>{
+                setFormError("");
+            }, 5000);
         })
     };
 
@@ -51,6 +55,7 @@ const Login = () => {
             <Input type="password" label="Password" register={register} required error={errors.Password}/>
             <input type="submit"/>
             <p className={classes['__form-message']}>Forgot Password?</p>
+            { formError && <p className={classes['__form-error']}>{formError}</p> }
         </form>);
 }
 
