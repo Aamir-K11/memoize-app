@@ -9,6 +9,14 @@
     margin-top: 1rem;
 }
 
+.__form-error {
+    margin-top: 1rem;
+    padding: 1rem;
+    align-self: center;
+    background-color: red;
+    border: 1px solid red;
+}
+
 @media only screen and (max-width: 600px) {
     .__form {
         margin-top: 2rem;
