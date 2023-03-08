@@ -26,11 +26,10 @@ const TaskTray = () => {
         .catch(err => console.log(err))
       }, []);
 
+    const Tasks = tasks.map((toDo) => <Task key={toDo._id} title={toDo.title} priority={toDo.priority}/>)
     return (
         <div className={classes['__task-tray']}>
-            <Task/>
-            <Task/>
-            <Task/>
+            {Tasks}
         </div>
     );
 }
