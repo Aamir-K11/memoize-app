@@ -1,10 +1,16 @@
 import classes from './task.module.css';
 
-const Task = () => {
+type TaskType = {
+    key: string,
+    title: string
+    priority: ['HIGH', 'MEDIUM', 'LOW']
+}
+
+const Task = ({key, title, priority} : TaskType) => {
     return (
     <div className={classes['__task-wrapper']}>
-        <p>Sample Title</p>
-        <p>URGENT</p>
+        <p>{title}</p>
+        <p>{priority}</p>
     </div>
     );
 }
