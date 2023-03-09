@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router"
 import Layout from "./layout/layout"
 import NotFound from "./pages/404/404"
-import Dashboard from "./pages/dashboard"
+import Dashboard from "./pages/dashboard/dashboard"
 import Login from "./pages/login"
 import SignUp from "./pages/signup"
 import VerifyUser from "./pages/verifyuser"
