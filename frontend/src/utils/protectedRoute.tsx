@@ -1,15 +1,13 @@
-import React from "react";
 import { Navigate } from "react-router";
-import { AuthContextType} from "../@types/auth";
-import { AuthContext } from "../context/auth-context";
+import { Outlet } from "react-router";
 
-const ProtectedRoute = ({redirectPath, children}: {redirectPath: string, children: JSX.Element})=> {
-    const {user} = React.useContext(AuthContext) as AuthContextType;
+
+const ProtectedRoute = ({guardStatement, redirectPath}: {guardStatement: boolean, redirectPath: string})=> {
     
-    if(!user) {
+    if(guardStatement) {
         return <Navigate to={redirectPath} replace/>
     }
-    return children;
+    return <Outlet />;
 }
 
 export default ProtectedRoute;
