@@ -1,12 +1,7 @@
+import { ToDo } from '../../@types/todo';
 import classes from './task.module.css';
 
-type TaskType = {
-    key: string,
-    title: string
-    priority: ['HIGH', 'MEDIUM', 'LOW']
-}
-
-const Task = ({key, title, priority} : TaskType) => {
+const Task = ({title, priority} : Omit<ToDo, '_id' | 'description'>) => {
     return (
     <div className={classes['__task-wrapper']}>
         <p>{title}</p>
