@@ -24,7 +24,7 @@ function App() {
             <Route path="/signup" element={<SignUp/>}/>
         </Route>
         <Route element= {<ProtectedRoute guardStatement = {!user} redirectPath="/login"></ProtectedRoute>}>
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/dashboard" element={<Dashboard user = {user}/>}/>
         </Route>
         <Route path="/verify" element={<VerifyUser/>}/>
         <Route path="/*" element={<NotFound/>}/>

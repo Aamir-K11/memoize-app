@@ -1,6 +1,8 @@
-const ProfileHeader = () => {
+import { IUser } from "../../@types/auth"
 
-    return <h1>Profile</h1>
+const ProfileHeader = ({firstname, lastname} : Partial<IUser>) => {
+
+    return <h1>{`${firstname} ${lastname}`}</h1>
 }
 
 export default ProfileHeader;
