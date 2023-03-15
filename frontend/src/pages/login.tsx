@@ -4,7 +4,7 @@ import loginSchema from "../schemas/login";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../components/input/input";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {useNavigate} from 'react-router-dom'
 import { AuthContext } from "../context/auth-context";
 import { AuthContextType } from "../@types/auth";
@@ -25,11 +25,16 @@ const Login = () => {
 
     const navigateTo = useNavigate();
 
+    const abortControllerRef = useRef<AbortController>(new AbortController());
+
     const onSubmitHandler: SubmitHandler<LoginFormInput> = (data) => {
+        
+        const controller = abortControllerRef.current;
+
         axios.post('http://localhost:5000/auth/login', {
             email: data.Email,
             password: data.Password
-        }
+        }, {signal: controller.signal}
         ).then((res: any) => {
             
             if(!res.data.isActive) navigateTo('/verify')
@@ -47,6 +52,10 @@ const Login = () => {
                 setFormError("");
             }, 5000);
         })
+
+        return () => {
+            controller.abort();
+        }
     };
 
     return (
