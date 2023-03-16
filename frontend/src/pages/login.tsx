@@ -25,16 +25,12 @@ const Login = () => {
 
     const navigateTo = useNavigate();
 
-    const abortControllerRef = useRef<AbortController>(new AbortController());
-
     const onSubmitHandler: SubmitHandler<LoginFormInput> = (data) => {
         
-        const controller = abortControllerRef.current;
-
         axios.post('http://localhost:5000/auth/login', {
             email: data.Email,
             password: data.Password
-        }, {signal: controller.signal}
+        }
         ).then((res: any) => {
             
             if(!res.data.isActive) navigateTo('/verify')
@@ -52,10 +48,6 @@ const Login = () => {
                 setFormError("");
             }, 5000);
         })
-
-        return () => {
-            controller.abort();
-        }
     };
 
     return (
